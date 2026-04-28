@@ -1,0 +1,9 @@
+﻿<Application x:Class="Catch_Catch_with_the_tv_Lost_and_Found_Criterion.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:Catch_Catch_with_the_tv_Lost_and_Found_Criterion"
+             StartupUri="MainWindow.xaml">
+    <Application.Resources>
+         
+    </Application.Resources>
+</Application>

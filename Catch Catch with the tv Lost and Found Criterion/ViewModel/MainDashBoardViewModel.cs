@@ -7,28 +7,26 @@ using System.Windows.Input;
 
 namespace Catch_Catch_with_the_tv_Lost_and_Found_Criterion.ViewModel
 {
-    public class AdminDashboardViewModel : INotifyPropertyChanged
+    public class MainDashboardViewModel : INotifyPropertyChanged
     {
-        public ICommand ManageLostItemsCommand { get; }
-        public ICommand ViewClaimsCommand { get; }
-        public ICommand LogoutCommand { get; }
+        public ICommand StudentCommand { get; }
+        public ICommand AdminCommand { get; }
 
-        public AdminDashboardViewModel()
+        public MainDashboardViewModel()
         {
-            ManageLostItemsCommand = new RelayCommand(_ => OpenAndClose(new LostItems()));
-            ViewClaimsCommand = new RelayCommand(_ => OpenAndClose(new Claims()));
-            LogoutCommand = new RelayCommand(_ => Logout());
+            StudentCommand = new RelayCommand(_ => OpenStudent());
+            AdminCommand = new RelayCommand(_ => OpenAdmin());
         }
 
-        private void OpenAndClose(Window next)
+        private void OpenStudent()
         {
-            next.Show();
+            new StudentLogin().Show();
             CloseCurrentWindow();
         }
 
-        private void Logout()
+        private void OpenAdmin()
         {
-            new MainDashboard().Show();
+            new AdminLogin().Show();
             CloseCurrentWindow();
         }
 
@@ -36,7 +34,7 @@ namespace Catch_Catch_with_the_tv_Lost_and_Found_Criterion.ViewModel
         {
             foreach (Window w in Application.Current.Windows)
             {
-                if (w is AdminDashboard)
+                if (w is MainDashboard)
                 {
                     w.Close();
                     break;

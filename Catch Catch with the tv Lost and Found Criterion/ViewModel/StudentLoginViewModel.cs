@@ -9,7 +9,7 @@ using System.Windows.Input;
 
 namespace Catch_Catch_with_the_tv_Lost_and_Found_Criterion.ViewModel
 {
-    public class LoginViewModel : ObservableObject
+    public class StudentLoginViewModel : ObservableObject
     {
         private readonly string connectionString =
             @"Server=THOMAS;Database=Catch Catch with the TV;Trusted_Connection=True;TrustServerCertificate=True;";
@@ -19,7 +19,7 @@ namespace Catch_Catch_with_the_tv_Lost_and_Found_Criterion.ViewModel
         public ICommand LoginCommand { get; }
         public ICommand BackCommand { get; }
 
-        public LoginViewModel()
+        public StudentLoginViewModel()
         {
             LoginCommand = new RelayCommand(async p => await Login(p));
             BackCommand = new RelayCommand(_ => Back());
@@ -58,13 +58,13 @@ namespace Catch_Catch_with_the_tv_Lost_and_Found_Criterion.ViewModel
                     string role = reader["Role"].ToString();
                     await reader.CloseAsync();
 
-                    if (role == "Admin" || role == "Employee")
+                    if (role == "Student")
                     {
-                        new AdminDashboard().Show();
+                        new StudentDashboard().Show();
 
                         foreach (Window w in Application.Current.Windows)
                         {
-                            if (w is AdminLogin)
+                            if (w is StudentLogin)
                             {
                                 w.Close();
                                 break;
@@ -73,10 +73,8 @@ namespace Catch_Catch_with_the_tv_Lost_and_Found_Criterion.ViewModel
                     }
                     else
                     {
-                        MessageBox.Show("Access denied. This login is for Admin and Employees only.",
-                            "Access Denied",
-                            MessageBoxButton.OK,
-                            MessageBoxImage.Warning);
+                        MessageBox.Show("This login is for students only.", "Access Denied",
+                            MessageBoxButton.OK, MessageBoxImage.Warning);
                     }
                 }
                 else
@@ -98,7 +96,7 @@ namespace Catch_Catch_with_the_tv_Lost_and_Found_Criterion.ViewModel
 
             foreach (Window w in Application.Current.Windows)
             {
-                if (w is AdminLogin)
+                if (w is StudentLogin)
                 {
                     w.Close();
                     break;

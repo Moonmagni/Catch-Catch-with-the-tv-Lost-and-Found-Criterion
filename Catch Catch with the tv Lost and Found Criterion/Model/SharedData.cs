@@ -3,8 +3,9 @@
     public static class SharedData
     {
         public static string ConnectionString =
-            @"Server=THOMAS;Database=CatchCatchLF;Trusted_Connection=True;TrustServerCertificate=True;";
+            @"Server=THOMAS;Database=Catch Catch with the TV;Trusted_Connection=True;TrustServerCertificate=True;";
 
         public static int CurrentUserID;
+        public static int? CurrentStudentID;
     }
 }

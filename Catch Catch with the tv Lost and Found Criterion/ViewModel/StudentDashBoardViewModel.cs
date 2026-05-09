@@ -10,17 +10,33 @@ namespace Catch_Catch_with_the_tv_Lost_and_Found_Criterion.ViewModel
     public class StudentDashboardViewModel : INotifyPropertyChanged
     {
         public ICommand ViewLostItemsCommand { get; }
+        public ICommand FileClaimCommand { get; }
         public ICommand LogoutCommand { get; }
 
         public StudentDashboardViewModel()
         {
             ViewLostItemsCommand = new RelayCommand(_ => OpenLostItems());
+            FileClaimCommand = new RelayCommand(_ => OpenClaims());
             LogoutCommand = new RelayCommand(_ => Logout());
         }
 
         private void OpenLostItems()
         {
             new StudentLostItems().Show();
+
+            foreach (Window w in Application.Current.Windows)
+            {
+                if (w is StudentDashboard)
+                {
+                    w.Close();
+                    break;
+                }
+            }
+        }
+
+        private void OpenClaims()
+        {
+            new StudentClaim().Show();
 
             foreach (Window w in Application.Current.Windows)
             {

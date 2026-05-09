@@ -18,25 +18,21 @@
                        HorizontalAlignment="Center"/>
 
             <Button Content="View Lost Items"
-                    Width="200"
-                    Height="45"
-                    Margin="10"
-                    Background="#4CAF50"
-                    Foreground="White"
-                    FontSize="15"
-                    FontWeight="Bold"
-                    BorderThickness="0"
+                    Width="200" Height="45" Margin="10"
+                    Background="#4CAF50" Foreground="White"
+                    FontSize="15" FontWeight="Bold" BorderThickness="0"
                     Command="{Binding ViewLostItemsCommand}"/>
 
+            <Button Content="File a Claim"
+                    Width="200" Height="45" Margin="10"
+                    Background="#2196F3" Foreground="White"
+                    FontSize="15" FontWeight="Bold" BorderThickness="0"
+                    Command="{Binding FileClaimCommand}"/>
+
             <Button Content="Logout"
-                    Width="200"
-                    Height="45"
-                    Margin="10,20,10,0"
-                    Background="#E53935"
-                    Foreground="White"
-                    FontSize="15"
-                    FontWeight="Bold"
-                    BorderThickness="0"
+                    Width="200" Height="45" Margin="10,20,10,0"
+                    Background="#E53935" Foreground="White"
+                    FontSize="15" FontWeight="Bold" BorderThickness="0"
                     Command="{Binding LogoutCommand}"/>
 
         </StackPanel>

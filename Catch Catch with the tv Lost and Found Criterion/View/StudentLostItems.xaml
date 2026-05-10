@@ -2,7 +2,7 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Report Lost Item"
-        Height="650" Width="1200"
+        WindowState="Maximized"
         WindowStartupLocation="CenterScreen"
         Background="White">
 
@@ -13,7 +13,7 @@
             <ColumnDefinition Width="5*"/>
         </Grid.ColumnDefinitions>
 
-        <!-- ================= LEFT: FORM ================= -->
+        <!-- LEFT: FORM -->
         <Border Grid.Column="0"
                 Background="#F5F5F5"
                 Padding="15"
@@ -80,7 +80,7 @@
 
         </Border>
 
-        <!-- ================= RIGHT: DATA GRID ================= -->
+        <!-- RIGHT: DATA GRID -->
         <Grid Grid.Column="1" Margin="10,0,0,0">
 
             <Grid.RowDefinitions>
@@ -95,7 +95,6 @@
                        FontWeight="Bold"
                        Margin="0,0,0,10"/>
 
-            <!-- SEARCH -->
             <Border Grid.Row="1"
                     BorderBrush="#DDD"
                     BorderThickness="1"
@@ -111,7 +110,6 @@
 
             </Border>
 
-            <!-- DATA GRID -->
             <Border Grid.Row="2"
                     BorderBrush="#DDD"
                     BorderThickness="1"
@@ -128,22 +126,11 @@
                           GridLinesVisibility="Horizontal">
 
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="ID"
-                                            Width="70"
-                                            Binding="{Binding LostItemID}"/>
-                        <DataGridTextColumn Header="Item Name"
-                                            Width="2*"
-                                            Binding="{Binding ItemName}"/>
-                        <DataGridTextColumn Header="Description"
-                                            Width="3*"
-                                            Binding="{Binding ItemDescription}"/>
-                        <DataGridTextColumn Header="Location"
-                                            Width="2*"
-                                            Binding="{Binding LocationFound}"/>
-                        <DataGridTextColumn Header="Date Found"
-                                            Width="150"
-                                            Binding="{Binding DateFound,
-                                                              StringFormat=yyyy-MM-dd}"/>
+                        <DataGridTextColumn Header="ID"          Width="70"  Binding="{Binding LostItemID}"/>
+                        <DataGridTextColumn Header="Item Name"   Width="2*"  Binding="{Binding ItemName}"/>
+                        <DataGridTextColumn Header="Description" Width="3*"  Binding="{Binding ItemDescription}"/>
+                        <DataGridTextColumn Header="Location"    Width="2*"  Binding="{Binding LocationFound}"/>
+                        <DataGridTextColumn Header="Date Found"  Width="150" Binding="{Binding DateFound, StringFormat=yyyy-MM-dd}"/>
                     </DataGrid.Columns>
 
                 </DataGrid>

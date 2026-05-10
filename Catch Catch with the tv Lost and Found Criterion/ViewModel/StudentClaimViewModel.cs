@@ -55,36 +55,6 @@ namespace Catch_Catch_with_the_tv_Lost_and_Found_Criterion.ViewModel
             }
         }
 
-        // ===================== CLAIM FIELDS =====================
-
-        private string _claimedColor = "";
-        public string ClaimedColor
-        {
-            get => _claimedColor;
-            set { _claimedColor = value; OnPropertyChanged(); }
-        }
-
-        private string _claimedLocationLost = "";
-        public string ClaimedLocationLost
-        {
-            get => _claimedLocationLost;
-            set { _claimedLocationLost = value; OnPropertyChanged(); }
-        }
-
-        private string _claimDescription = "";
-        public string ClaimDescription
-        {
-            get => _claimDescription;
-            set { _claimDescription = value; OnPropertyChanged(); }
-        }
-
-        private DateTime? _claimedDateLost = DateTime.Now;
-        public DateTime? ClaimedDateLost
-        {
-            get => _claimedDateLost;
-            set { _claimedDateLost = value; OnPropertyChanged(); }
-        }
-
         // ===================== COMMANDS =====================
 
         public ICommand SubmitClaimCommand { get; }
@@ -116,7 +86,7 @@ namespace Catch_Catch_with_the_tv_Lost_and_Found_Criterion.ViewModel
                 var cmd = new SqlCommand(@"
                     SELECT LostItemID, ItemName,
                            ISNULL(ItemDescription, '') AS ItemDescription,
-                           ISNULL(LocationFound, '')   AS LocationFound,
+                           ISNULL(LocationFound,   '') AS LocationFound,
                            DateFound, IsFound, EmployeeID
                     FROM Lost_Items
                     WHERE IsFound = 0
@@ -175,25 +145,15 @@ namespace Catch_Catch_with_the_tv_Lost_and_Found_Criterion.ViewModel
         {
             if (SelectedItem == null)
             {
-                MessageBox.Show("Please select an item to claim.", "Validation",
+                MessageBox.Show("Please select an item from the list first.", "Validation",
                     MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
 
             if (SharedData.CurrentStudentID == null || SharedData.CurrentStudentID == 0)
             {
-                MessageBox.Show("No student profile is linked to this account.", "Error",
+                MessageBox.Show("No student profile linked to this account.", "Error",
                     MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
-            }
-
-            if (string.IsNullOrWhiteSpace(ClaimedColor) ||
-                string.IsNullOrWhiteSpace(ClaimedLocationLost) ||
-                string.IsNullOrWhiteSpace(ClaimDescription) ||
-                ClaimedDateLost == null)
-            {
-                MessageBox.Show("Please complete all claim verification fields.", "Validation",
-                    MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
 
@@ -202,6 +162,7 @@ namespace Catch_Catch_with_the_tv_Lost_and_Found_Criterion.ViewModel
                 using SqlConnection conn = new(connectionString);
                 await conn.OpenAsync();
 
+                // Check for duplicate pending claim
                 var checkCmd = new SqlCommand(@"
                     SELECT COUNT(*) FROM Claims
                     WHERE LostItemID         = @LostItemID
@@ -248,10 +209,6 @@ namespace Catch_Catch_with_the_tv_Lost_and_Found_Criterion.ViewModel
 
         private void ClearFields()
         {
-            ClaimedColor = "";
-            ClaimedLocationLost = "";
-            ClaimDescription = "";
-            ClaimedDateLost = DateTime.Now;
             SelectedItem = null;
         }
 

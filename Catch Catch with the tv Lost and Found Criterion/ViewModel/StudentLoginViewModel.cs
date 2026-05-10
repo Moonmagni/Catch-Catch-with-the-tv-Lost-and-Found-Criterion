@@ -32,7 +32,8 @@ namespace Catch_Catch_with_the_tv_Lost_and_Found_Criterion.ViewModel
 
             string password = pb.Password;
 
-            if (string.IsNullOrWhiteSpace(CurrentUser.Username) || string.IsNullOrWhiteSpace(password))
+            if (string.IsNullOrWhiteSpace(CurrentUser.Username) ||
+                string.IsNullOrWhiteSpace(password))
             {
                 MessageBox.Show("Please enter username and password.", "Validation",
                     MessageBoxButton.OK, MessageBoxImage.Warning);
@@ -44,8 +45,10 @@ namespace Catch_Catch_with_the_tv_Lost_and_Found_Criterion.ViewModel
                 using SqlConnection conn = new(connectionString);
                 await conn.OpenAsync();
 
-                var cmd = new SqlCommand(
-                    "SELECT UserID, Role FROM Users WHERE Username=@u AND Password=@p", conn);
+                var cmd = new SqlCommand(@"
+                    SELECT UserID, Role, StudentID
+                    FROM Users
+                    WHERE Username = @u AND Password = @p", conn);
 
                 cmd.Parameters.AddWithValue("@u", CurrentUser.Username.Trim());
                 cmd.Parameters.AddWithValue("@p", password);
@@ -56,10 +59,26 @@ namespace Catch_Catch_with_the_tv_Lost_and_Found_Criterion.ViewModel
                 {
                     SharedData.CurrentUserID = (int)reader["UserID"];
                     string role = reader["Role"].ToString();
+
+                    SharedData.CurrentStudentID =
+                        reader["StudentID"] == DBNull.Value
+                            ? 0
+                            : (int)reader["StudentID"];
+
                     await reader.CloseAsync();
 
                     if (role == "Student")
                     {
+                        if (SharedData.CurrentStudentID == 0)
+                        {
+                            MessageBox.Show(
+                                "Your account has no student profile linked. Contact the administrator.",
+                                "No Student Profile",
+                                MessageBoxButton.OK,
+                                MessageBoxImage.Warning);
+                            return;
+                        }
+
                         new StudentDashboard().Show();
 
                         foreach (Window w in Application.Current.Windows)

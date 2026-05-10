@@ -2,9 +2,9 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Claims Management"
-        Height="600"
-        Width="1000"
-        WindowStartupLocation="CenterScreen">
+        WindowState="Maximized"
+        WindowStartupLocation="CenterScreen"
+        Background="White">
 
     <Grid Margin="10">
 
@@ -46,37 +46,28 @@
                          IsReadOnly="True"
                          Margin="0,5,0,10"/>
 
-                <!-- BUTTONS -->
                 <StackPanel Orientation="Horizontal"
                             HorizontalAlignment="Center"
                             Margin="0,20,0,0">
 
                     <Button Content="Approve"
-                            Width="80"
-                            Margin="3"
-                            Background="Green"
-                            Foreground="White"
+                            Width="80" Margin="3"
+                            Background="Green" Foreground="White"
                             Command="{Binding ApproveCommand}"/>
 
                     <Button Content="Reject"
-                            Width="80"
-                            Margin="3"
-                            Background="Orange"
-                            Foreground="White"
+                            Width="80" Margin="3"
+                            Background="Orange" Foreground="White"
                             Command="{Binding RejectCommand}"/>
 
                     <Button Content="Delete"
-                            Width="80"
-                            Margin="3"
-                            Background="Red"
-                            Foreground="White"
+                            Width="80" Margin="3"
+                            Background="Red" Foreground="White"
                             Command="{Binding DeleteCommand}"/>
 
                     <Button Content="Back"
-                            Width="80"
-                            Margin="3"
-                            Background="#607D8B"
-                            Foreground="White"
+                            Width="80" Margin="3"
+                            Background="#607D8B" Foreground="White"
                             Command="{Binding BackCommand}"/>
 
                 </StackPanel>
@@ -90,23 +81,31 @@
 
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
-            <Border Grid.Row="0"
+            <TextBlock Grid.Row="0"
+                       Text="CLAIMS"
+                       FontSize="22"
+                       FontWeight="Bold"
+                       Margin="0,0,0,10"/>
+
+            <Border Grid.Row="1"
                     Background="White"
                     BorderBrush="#DDD"
                     BorderThickness="1"
                     Padding="5"
                     Margin="0,0,0,10">
 
-                <TextBox Height="30"
+                <TextBox Height="35"
                          Padding="5"
-                         Text="{Binding FilterText, UpdateSourceTrigger=PropertyChanged}"/>
+                         Text="{Binding FilterText,
+                                        UpdateSourceTrigger=PropertyChanged}"/>
 
             </Border>
 
-            <Border Grid.Row="1"
+            <Border Grid.Row="2"
                     Background="White"
                     BorderBrush="#DDD"
                     BorderThickness="1">
@@ -122,10 +121,10 @@
                           VerticalScrollBarVisibility="Auto">
 
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="Claim ID"     Binding="{Binding ClaimID}"            Width="80"/>
-                        <DataGridTextColumn Header="Lost Item ID" Binding="{Binding LostItemID}"         Width="120"/>
-                        <DataGridTextColumn Header="Student ID"   Binding="{Binding StudentID}"          Width="120"/>
-                        <DataGridTextColumn Header="Status"       Binding="{Binding VerificationStatus}" Width="*"/>
+                        <DataGridTextColumn Header="Claim ID"     Width="80"  Binding="{Binding ClaimID}"/>
+                        <DataGridTextColumn Header="Lost Item ID" Width="120" Binding="{Binding LostItemID}"/>
+                        <DataGridTextColumn Header="Student ID"   Width="120" Binding="{Binding StudentID}"/>
+                        <DataGridTextColumn Header="Status"       Width="*"   Binding="{Binding VerificationStatus}"/>
                     </DataGrid.Columns>
 
                 </DataGrid>
@@ -135,4 +134,5 @@
         </Grid>
 
     </Grid>
+
 </Window>
